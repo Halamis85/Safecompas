@@ -9,9 +9,14 @@ import 'bootstrap';
 import './layout.js';
 import './notifications.js';
 
-
-
-
+const userAuthMeta = document.querySelector('meta[name="user-authenticated"]');
+if (userAuthMeta && userAuthMeta.content === 'true') {
+    import('./session-manager.js').then(module => {
+        module.sessionManager();
+    }).catch(error => {
+        console.error("Chyba při načítání session-manager:", error);
+    });
+}
 
 if (document.body.classList.contains('dashboard-home')) {
     Promise.all([
@@ -40,7 +45,7 @@ if (document.body.classList.contains('prehled')) {
     });
 }
 
-if (document.body.classList.contains('')) {
+if (document.body.classList.contains('objednavka')) {
     import('./newobjednavka.js').then(module => {
         module.objednavka();
     });
@@ -69,15 +74,18 @@ if (document.body.classList.contains('administrace')) {
             console.error("Chyba při dynamickém importu:", error);
         });
 }
-
-if (document.body.classList.contains('employee-list')) {
-    Promise.all([
-        import('./employeeList.js'),
-    ])
-        .then(([Modul,]) => {
-            Modul.employeeList();
-        })
-        .catch(error => {
-            console.error("Chyba při dynamickém importu:", error);
-        });
+// Lékárničky js
+if (document.body.classList.contains('lekarnicke-modul')) {
+    import('./lekarnicky.js').then(module => {
+        module.lekarnicky();
+    }).catch(error => {
+        console.error("Chyba při načítání lékárniček modulu:", error);
+    });
+}
+if (document.body.classList.contains('permissions-admin')) {
+    import('./permissions.js').then(module => {
+        module.permissions();
+    }).catch(error => {
+        console.error("Chyba při načítání permissions modulu:", error);
+    });
 }

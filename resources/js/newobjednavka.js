@@ -19,11 +19,7 @@ let currentFocus = -1;
 let items = [];
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]');
-if (!csrfToken) {
-    console.error('CSRF token nebyl nalezen!');
-    alert('Chyba: Chybí bezpečnostní token');
-    return;
-}
+
 // Funkce pro resetování cardCircle do výchozího stavu
 function resetCardCircleContent() {
     cardCircle.classList.remove('shadow-success', 'shadow-error');
@@ -62,27 +58,27 @@ function displayCardMessage(iconClass, iconWeight, textColorClass, messageTitle,
 
     // Timer pro kompletní reset formuláře a UI po zprávě
     setTimeout(() => {
-        // 1. Reset formuláře na výchozí hodnoty
+        // 1.Reset formuláře na výchozí hodnoty
         objednavkaForm.reset();
 
-        // 2. Vyčištění a reset skrytých/dataset hodnot
+        // 2.Vyčištění a reset skrytých/dataset hodnot
         zamestnanecInput.dataset.id = '';
         document.getElementById('stredisko').value = '';
 
-        // 3. Reset dropdown a jejich obsahu na výchozí stav
+        // 3.Reset dropdown a jejich obsahu na výchozí stav
         druhSelect.value = '';
         produktSelect.innerHTML = '<option value="">Vyberte produkt</option>';
         produktSelect.value = '';
         velikostSelect.innerHTML = '<option value="">Nejprve vyberte produkt</option>';
         velikostSelect.value = '';
 
-        // 4. Reset data na aktuální datum
+        // 4.Reset data na aktuální datum
         datumInput.value = new Date().toISOString().split('T')[0];
 
-        // 5. Reset cardCircle do jeho normálního stavu - Zde je klíčová změna!
+        // 5.Reset cardCircle do jeho normálního stavu - Zde je klíčová změna!
         resetCardCircleContent(); // Voláme funkci, která znovu vytvoří elementy a získá nové reference
 
-        // 6. Povolení vstupního pole pro zaměstnance a nastavení focus
+        // 6.Povolení vstupního pole pro zaměstnance a nastavení focus
         zamestnanecInput.disabled = false;
         zamestnanecInput.focus();
         zamestnanecList.classList.add('d-none');
@@ -90,12 +86,15 @@ function displayCardMessage(iconClass, iconWeight, textColorClass, messageTitle,
     }, 5000);
 }
 
-// ... (handleFetchResponse zůstává stejná) ...
 
 function objednavka() {
     console.log('script_objednávka.js: Modul inicializován.');
 
-
+    if (!csrfToken) {
+        console.error('CSRF token nebyl nalezen!');
+        alert('Chyba: Chybí bezpečnostní token');
+        return; // ✅ Nyní je return uvnitř funkce
+    }
 
     // Inicializace
     datumInput.value = new Date().toISOString().split('T')[0];

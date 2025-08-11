@@ -916,11 +916,6 @@ display: none;
     box-shadow: 0 0 5px 0 rgba(0,0,0,.25);
 }
 
-.dt-paging
-{
-
-}
-
 .dt-page-item:not(:first-child) .page-link
     {
 margin: 0.1rem;

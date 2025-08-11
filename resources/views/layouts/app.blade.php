@@ -2,6 +2,7 @@
 <html lang="cs-cz">
 <head>
     <meta charset="utf-8">
+    <meta name="user-authenticated" content="{{ session('user') ? 'true' : 'false' }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aplikace pro správu OOPP.">
@@ -24,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/mew_orders">Nová objednávka OOPP</a>
+                        <a class="nav-link" href="/new_orders">Nová objednávka OOPP</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/prehled">Přehled OOPP k vydání</a>
@@ -62,6 +63,8 @@
         <a class="sidebar-item text-center" href="/admin">
             <i class="fa-solid fa-id-card me-1"></i> Administrace
         </a>
+        <a href="/lekarnicke" class="sidebar-item text-center">
+            <i class="fa-solid fa-kit-medical fa-2x pb-2"></i>Správa lékárniček</a>
     </div>
     <a class="sidebar-item mt-2 logout-item text-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
         <i class="fa-solid fa-right-from-bracket me-1"></i> Odhlásit se

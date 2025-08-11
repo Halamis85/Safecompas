@@ -95,4 +95,16 @@ class HomeController extends Controller
 
         return view('admin/employee_add', $data);
     }
+    public function lekarnicke()
+    {
+        $data = [
+            'title' => 'Lékárničky',
+            'descriptions' => 'Správa a sledování lékárniček'
+        ];
+        return view('lekarnicky.index', $data);
+    }
+
+
+
+
 }
